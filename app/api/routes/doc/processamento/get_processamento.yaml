@@ -1,0 +1,166 @@
+tags:
+  - Processamento
+summary: Obter dados de processamento
+description: Retorna dados de processamento de uvas filtrados por ano, tipo, subtipo e cultivar
+operationId: getProcessamento
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: "#/definitions/ProcessamentoRequest"
+responses:
+  200:
+    description: Dados de processamento retornados com sucesso
+    schema:
+      $ref: "#/definitions/ProcessamentoResponse"
+    examples:
+      application/json:
+        {
+          "data": {
+            "2020": {
+              "Viníferas": [
+                {
+                  "Nome": "TINTAS",
+                  "Quantidade_total": "28.003.505",
+                  "cultivares": [
+                    {
+                      "cultivar": "Cabernet Sauvignon",
+                      "quantidade": "5.889.427"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "metadata": {
+            "fonte": "http://vitibrasil.cnpuv.embrapa.br",
+            "unidade_quantidade": "kg ou litros conforme o produto"
+          }
+        }
+  400:
+    description: Erro de validação nos parâmetros
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+  401:
+    description: Token de autenticação inválido ou ausente
+  500:
+    description: Erro interno no servidor
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+security:
+  - BearerAuth: []
+definitions:
+  ProcessamentoRequest:
+    type: object
+    properties:
+      ano:
+        type: integer
+        description: Ano do processamento (1970-2023)
+        example: 2020
+        minimum: 1970
+        maximum: 2023
+      tipo:
+        type: string
+        description: Tipo de uva processada
+        enum: ["Viníferas", "Americanas e híbridas", "Uvas de mesa", "Sem classificação"]
+        example: "Viníferas"
+      subtipo:
+        type: string
+        description: Subtipo da uva (opcional)
+        example: "TINTAS"
+      cultivar:
+        type: string
+        description: Cultivar específico (opcional)
+        example: "Cabernet Sauvignon"
+    required:
+      - ano
+  
+  ProcessamentoResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            Viníferas:
+              type: array
+              items:
+                type: object
+                properties:
+                  Nome:
+                    type: string
+                    example: "TINTAS"
+                  Quantidade_total:
+                    type: string
+                    example: "28.003.505"
+                  cultivares:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cultivar:
+                          type: string
+                          example: "Cabernet Sauvignon"
+                        quantidade:
+                          type: string
+                          example: "5.889.427"
+            "Americanas e híbridas":
+              type: array
+              items:
+                $ref: "#/definitions/TipoProcessamento"
+            "Uvas de mesa":
+              type: array
+              items:
+                $ref: "#/definitions/TipoProcessamento"
+            "Sem classificação":
+              type: array
+              items:
+                $ref: "#/definitions/TipoProcessamento"
+      metadata:
+        type: object
+        properties:
+          fonte:
+            type: string
+            example: "http://vitibrasil.cnpuv.embrapa.br"
+          unidade_quantidade:
+            type: string
+            example: "kg ou litros conforme o produto"
+  
+  TipoProcessamento:
+    type: object
+    properties:
+      Nome:
+        type: string
+        example: "TINTAS"
+      Quantidade_total:
+        type: string
+        example: "28.003.505"
+      cultivares:
+        type: array
+        items:
+          type: object
+          properties:
+            cultivar:
+              type: string
+              example: "Cabernet Sauvignon"
+            quantidade:
+              type: string
+              example: "5.889.427"
+  
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Dados inválidos"
+      details:
+        type: array
+        items:
+          type: string
+        example: ["ano: field required"]

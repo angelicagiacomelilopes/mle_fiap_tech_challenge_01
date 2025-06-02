@@ -1,0 +1,161 @@
+tags:
+  - Comercialização
+summary: Obter dados de comercialização
+description: Retorna dados de comercialização de produtos vitivinícolas filtrados por ano, produto e categoria
+operationId: getComercializacao
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: "#/definitions/ComercializacaoRequest"
+responses:
+  200:
+    description: Dados de comercialização retornados com sucesso
+    schema:
+      $ref: "#/definitions/ComercializacaoResponse"
+    examples:
+      application/json:
+        {
+          "data": {
+            "2020": [
+              {
+                "produto": [
+                  {
+                    "Nome": "VINHO DE MESA",
+                    "Quantidade_total_litros": "215.557.931",
+                    "categorias": [
+                      {
+                        "categoria": "Tinto",
+                        "quantidade_litros": "189.573.423"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "metadata": {
+            "fonte": "http://vitibrasil.cnpuv.embrapa.br",
+            "unidade_quantidade": "kg ou litros conforme o produto"
+          }
+        }
+  400:
+    description: Erro de validação nos parâmetros
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+  401:
+    description: Token de autenticação inválido ou ausente
+    schema:
+      $ref: "#/definitions/ErrorTokenResponse"
+  500:
+    description: Erro interno no servidor
+    schema:
+      $ref: "#/definitions/ErrorServerResponse"
+security:
+  - BearerAuth: []
+definitions:
+  ComercializacaoRequest:
+    type: object
+    properties:
+      ano:
+        type: integer
+        description: Ano da comercialização (1970-2023)
+        example: 2020
+        minimum: 1970
+        maximum: 2023
+      produto:
+        type: string
+        description: Tipo de produto (opcional)
+        enum: ["VINHO DE MESA", "ESPUMANTES", "UVAS FRESCAS", "SUCO DE UVA"]
+        example: "VINHO DE MESA"
+      categoria:
+        type: string
+        description: Categoria do produto (opcional)
+        example: "Tinto"
+    required:
+      - ano
+  
+  ComercializacaoResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            properties:
+              produto:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Nome:
+                      type: string
+                      example: "VINHO DE MESA"
+                    Quantidade_total_litros:
+                      type: string
+                      example: "215.557.931"
+                    categorias:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          categoria:
+                            type: string
+                            example: "Tinto"
+                          quantidade_litros:
+                            type: string
+                            example: "189.573.423"
+      metadata:
+        type: object
+        properties:
+          fonte:
+            type: string
+            example: "http://vitibrasil.cnpuv.embrapa.br"
+          unidade_quantidade:
+            type: string
+            example: "litros"
+  
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Dados inválidos"
+      details:
+        type: array
+        items:
+          type: string
+        example: ["ano: Input should be a valid integer, unable to parse string as an integer"]
+
+  ErrorTokenResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Token is missing!"
+      details:
+        type: array
+        items:
+          type: string
+        example: ["message: Token is missing!"]
+ 
+  ErrorServerResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Erro interno no servidor"
+      details:
+        type: array
+        items:
+          type: string 
+        example: ["message: ComercializacaoService.get_data() got an unexpected keyword argument 'year'" ]
+ 
+ 

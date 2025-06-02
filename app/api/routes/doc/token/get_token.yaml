@@ -1,0 +1,77 @@
+tags:
+  - Token
+summary: Autenticar usuário
+description: Gera um token JWT para autenticação
+operationId: getToken
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/LoginRequest'
+responses:
+  200:
+    description: Autenticação bem-sucedida
+    schema:
+      $ref: '#/definitions/LoginResponse'
+  400:
+    description: Requisição inválida
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  401:
+    description: Credenciais inválidas
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  500:
+    description: Erro interno do servidor
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Use o token JWT no formato "Bearer {token}"
+security:
+  - BearerAuth: []
+definitions:
+  LoginRequest:
+    type: object
+    properties:
+      username:
+        type: string
+        example: "admin"
+        description: Nome de usuário
+      password:
+        type: string
+        example: "senha123"
+        description: Senha do usuário
+    required:
+      - username
+      - password
+
+  LoginResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: Token JWT gerado
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        description: Mensagem de erro
+        example: "Credenciais inválidas"
+      details:
+        type: array
+        items:
+          type: string
+        description: Detalhes do erro
+        example: ["Campo 'username' é obrigatório"]
