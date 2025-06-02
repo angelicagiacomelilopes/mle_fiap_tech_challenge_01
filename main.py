@@ -1,10 +1,8 @@
 from flask import Flask
-from flasgger import Swagger 
+from flasgger import Swagger
 from flask_sqlalchemy import SQLAlchemy
 
 from app.config.settings import Settings
-# from app.infra.database import init_db 
- 
 from app.api.routes.token import init_auth_routes_token 
 from app.api.routes.producao_route import init_auth_routes_token_producao
 from app.api.routes.comercializacao_route import init_auth_routes_token_comercializacao
@@ -13,12 +11,12 @@ from app.api.routes.importacao_route import init_auth_routes_token_importacao
 from app.api.routes.exportacao_route import init_auth_routes_token_exportacao
 
 def create_app():
+    """Factory principal da aplicação Flask"""
     conf = Settings()
-
     app = Flask(__name__)
-    app.config.from_object(Settings)
-    # db = SQLAlchemy(app) 
-     
+    app.config.from_object(conf)
+    
+    # Configuração do Swagger
     app.config['SWAGGER'] = {
         'title': 'Tech Challenge – Fase 1 | Machine Learning Engineering - API de Dados Vitivinícolas da Embrapa',
         'uiversion': 3,
@@ -30,9 +28,9 @@ def create_app():
             'model_filter': lambda tag: True,
         }]
     }
+    Swagger(app)
 
-    swagger = Swagger(app)
-
+    # Inicialização de rotas
     init_auth_routes_token(app)
     init_auth_routes_token_producao(app)
     init_auth_routes_token_comercializacao(app)
@@ -40,24 +38,9 @@ def create_app():
     init_auth_routes_token_importacao(app)
     init_auth_routes_token_exportacao(app)
 
-    app.run(debug=conf.DEBUG)
- 
+    return app
+
+app = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
-   
-    
-    
-    
-
-   
-    
-    
-
-
- 
-
-
-
- 
- 
-
+    app.run(debug=True)
