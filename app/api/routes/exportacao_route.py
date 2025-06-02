@@ -33,7 +33,7 @@ def init_auth_routes_token_exportacao(app):
 
     @app.route('/exportacao', methods=['GET'])
     @token.token_required
-    @swag_from('doc\\exportacao\\get_exportacao.yaml')
+    @swag_from('doc/exportacao/get_exportacao.yaml')
     def get_exportacao_ano():
         try:
             # Validar o payload com o DTO

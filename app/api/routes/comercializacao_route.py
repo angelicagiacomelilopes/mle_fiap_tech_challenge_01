@@ -33,7 +33,7 @@ def init_auth_routes_token_comercializacao(app):
 
     @app.route('/comercializacao', methods=['GET'])
     @token.token_required
-    @swag_from('doc\\comercializacao\\get_comercializacao.yaml')
+    @swag_from('doc/comercializacao/get_comercializacao.yaml')
     def get_comercializacao_ano():
         """
         Endpoint principal de comercialização
