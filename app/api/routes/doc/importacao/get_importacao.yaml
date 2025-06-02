@@ -1,0 +1,122 @@
+tags:
+  - Importação
+summary: Obter dados de importação
+description: Retorna dados de importação de produtos vitivinícolas filtrados por ano, tipo e país
+operationId: getImportacao
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: "#/definitions/ImportacaoRequest"
+responses:
+  200:
+    description: Dados de importação retornados com sucesso
+    schema:
+      $ref: "#/definitions/ImportacaoResponse"
+    examples:
+      application/json:
+        {
+          "data": {
+            "2020": {
+              "Vinhos de mesa": {
+                "total_paises": 15,
+                "paises": {
+                  "Argentina": {
+                    "quantidade": "100.000",
+                    "valor": "500.000"
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "fonte": "http://vitibrasil.cnpuv.embrapa.br",
+            "unidade_quantidade": "kg ou litros conforme o produto",
+            "unidade_valor": "US$"
+          }
+        }
+  400:
+    description: Erro de validação nos parâmetros
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+  401:
+    description: Token de autenticação inválido ou ausente
+  500:
+    description: Erro interno no servidor
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+security:
+  - BearerAuth: []
+definitions:
+  ImportacaoRequest:
+    type: object
+    properties:
+      ano:
+        type: integer
+        description: Ano da importação (1970-2023)
+        example: 2020
+        minimum: 1970
+        maximum: 2023
+      tipo:
+        type: string
+        description: Tipo de produto importado
+        enum: ["Vinhos de mesa", "Espumantes", "Uvas frescas", "Uvas passas", "Suco de uva"]
+        example: "Vinhos de mesa"
+      pais:
+        type: string
+        description: País de origem (opcional)
+        example: "Argentina"
+    required:
+      - ano
+  
+  ImportacaoResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            total_paises:
+              type: integer
+              example: 15
+            paises:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  quantidade:
+                    type: string
+                    example: "100.000"
+                  valor:
+                    type: string
+                    example: "500.000"
+      metadata:
+        type: object
+        properties:
+          fonte:
+            type: string
+            example: "http://vitibrasil.cnpuv.embrapa.br"
+          unidade_quantidade:
+            type: string
+            example: "kg ou litros conforme o produto"
+          unidade_valor:
+            type: string
+            example: "US$"
+  
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Dados inválidos"
+      details:
+        type: array
+        items:
+          type: string
+        example: ["ano: field required"]

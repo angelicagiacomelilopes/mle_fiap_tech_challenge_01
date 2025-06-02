@@ -1,0 +1,13 @@
+Flask
+SQLAlchemy
+alembic
+flask_sqlalchemy
+Flask-JWT-Extended
+flasgger
+requests 
+beautifulsoup4 
+pandas
+Flask-HTTPAuth
+pytest
+pydantic
+gunicorn 

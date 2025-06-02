@@ -1,0 +1,132 @@
+tags:
+  - Produção
+summary: Obter dados de produção
+description: Retorna dados de produção vitivinícola filtrados por ano, produto e categoria
+operationId: getProducao
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: "#/definitions/ProducaoRequest"
+responses:
+  200:
+    description: Dados de produção retornados com sucesso
+    schema:
+      $ref: "#/definitions/ProducaoResponse"
+    examples:
+      application/json:
+        {
+          "data": {
+            "2020": {
+              "Vinhos": [
+                {
+                  "categoria": "Tintos",
+                  "quantidade": "150.000",
+                  "unidade": "litros"
+                }
+              ]
+            }
+          },
+          "metadata": {
+            "fonte": "http://vitibrasil.cnpuv.embrapa.br",
+            "atualizacao": "2023-01-15"
+          }
+        }
+  400:
+    description: Erro de validação nos parâmetros
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+  401:
+    description: Token de autenticação inválido ou ausente
+  500:
+    description: Erro interno no servidor
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+security:
+  - BearerAuth: []
+definitions:
+  ProducaoRequest:
+    type: object
+    properties:
+      ano:
+        type: integer
+        description: Ano da produção (1970-2023)
+        example: 2020
+        minimum: 1970
+        maximum: 2023
+      produto:
+        type: string
+        description: Tipo de produto (opcional)
+        enum: ["Vinhos", "Espumantes", "Sucos", "Derivados"]
+        example: "Vinhos"
+      categoria:
+        type: string
+        description: Categoria do produto (opcional)
+        example: "Tintos"
+    required:
+      - ano
+  
+  ProducaoResponse:
+    type: object
+    properties:
+      data:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            Vinhos:
+              type: array
+              items:
+                $ref: "#/definitions/ItemProducao"
+            Espumantes:
+              type: array
+              items:
+                $ref: "#/definitions/ItemProducao"
+            Sucos:
+              type: array
+              items:
+                $ref: "#/definitions/ItemProducao"
+            Derivados:
+              type: array
+              items:
+                $ref: "#/definitions/ItemProducao"
+      metadata:
+        type: object
+        properties:
+          fonte:
+            type: string
+            example: "http://vitibrasil.cnpuv.embrapa.br"
+          atualizacao:
+            type: string
+            format: date
+            example: "2023-01-15"
+  
+  ItemProducao:
+    type: object
+    properties:
+      categoria:
+        type: string
+        example: "Tintos"
+      quantidade:
+        type: string
+        example: "150.000"
+      unidade:
+        type: string
+        example: "litros"
+  
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        example: "Dados inválidos"
+      details:
+        type: array
+        items:
+          type: string
+        example: ["ano: field required"]
