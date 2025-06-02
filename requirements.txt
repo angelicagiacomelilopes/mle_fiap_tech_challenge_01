@@ -10,3 +10,4 @@ pandas
 Flask-HTTPAuth
 pytest
 pydantic
+gunicorn 
