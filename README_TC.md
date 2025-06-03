@@ -1,6 +1,6 @@
 # Tech Challenge – Fase 1 | Machine Learning Engineering
 # 🍷 API de Dados Vitivinícolas da Embrapa
-
+Aluna: Angélica Giacomeli Lopes RM: 363921
 
 ## 📌 Sumário
 - [Tech Challenge – Fase 1 | Machine Learning Engineering](#tech-challenge--fase-1--machine-learning-engineering)
@@ -16,7 +16,7 @@
   - [Testando a API](#testando-a-api)
   - [🌐 Deploy](#-deploy)
   - [📊 Arquitetura](#-arquitetura)
-  - [�‍♂️ Uso Inicie o servidor local:](#️-uso-inicie-o-servidor-local)
+  - [🏃‍♂️ Uso Inicie o servidor local:](#️-uso-inicie-o-servidor-local)
   - [🎥 Vídeo de Apresentação](#-vídeo-de-apresentação)
   - [📄 Licença](#-licença)
   - [✉️ Contato](#️-contato)
@@ -48,7 +48,7 @@ Este projeto consiste em uma API pública para consulta de dados de vitivinicult
 - Pré-requisitos
 - Python 3.9+
 - Pipenv (ou pip)
-
+ 
 ### Passo a passo
 1. Clone o repositório:
 git clone https://github.com/seu-usuario/vitivinicultura-api.git

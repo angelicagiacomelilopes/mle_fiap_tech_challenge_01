@@ -14,7 +14,6 @@ class ProcessamentoService:
 
     def load_backup_data(self):
         try:
-            print("Passou aqui")
             dados = json.loads(json_str)
             return dados
         except FileNotFoundError:
@@ -27,9 +26,6 @@ class ProcessamentoService:
         # url_teste = "http://127.0.0.1:5000/processamentoa"
         url_teste = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02"
         if self.check_url_health(url_teste):
-            print("Carregou on line")
-                
-        
             """Obtém dados para um intervalo de anos"""
             all_dfs = []
             dict_tipo = {

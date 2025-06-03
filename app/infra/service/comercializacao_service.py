@@ -133,7 +133,7 @@ class ComercializacaoService:
         """Obtém dados para um intervalo de anos"""
         all_dfs = []
         url_teste = "http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02"
-        url_teste = "http://127.0.0.1:5000/producaoa"
+        # url_teste = "http://127.0.0.1:5000/producaoa"
         if self.check_url_health(url_teste):
             try:
                 if ano is not None:

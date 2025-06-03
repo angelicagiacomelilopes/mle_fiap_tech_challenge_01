@@ -3,7 +3,7 @@ from flasgger import Swagger
 from flask_sqlalchemy import SQLAlchemy
 
 from app.config.settings import Settings
-from app.api.routes.token import init_auth_routes_token 
+from app.api.routes.token_route import init_auth_routes_token 
 from app.api.routes.producao_route import init_auth_routes_token_producao
 from app.api.routes.comercializacao_route import init_auth_routes_token_comercializacao
 from app.api.routes.processamento_route import init_auth_routes_token_processamento

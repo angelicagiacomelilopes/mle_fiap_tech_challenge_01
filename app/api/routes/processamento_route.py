@@ -1,7 +1,7 @@
 # app/api/routes/producao.py
 from flask import jsonify, request
 from app.config.settings import Settings
-from app.infra.auth.token import Token  
+from app.infra.auth.token_service import Token  
 from app.infra.service.processamento_service import ProcessamentoService
 from app.dto.processamento_dto import ProcessamentoRequestDTO
 from pydantic import ValidationError
