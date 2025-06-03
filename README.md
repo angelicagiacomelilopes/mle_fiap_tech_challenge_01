@@ -192,14 +192,14 @@ python main.py
 ```
 
 ## Testando a API Via Produção
-Acesse a documentação Sweager
+Acesse a documentação Swagger
 1. Acesse a documentação: https://mle-fiap-tech-challenge-01.onrender.com/apidocs
 
 2. API está disponível em:
    https://mle-fiap-tech-challenge-01.onrender.com/
 
 ## Testando a API Localmente
-Acesse a documentação Sweager
+Acesse a documentação Swagger
 1. Acesse a documentação: http://127.0.0.1:5000/apidocs
 
 2. API está disponível em:
