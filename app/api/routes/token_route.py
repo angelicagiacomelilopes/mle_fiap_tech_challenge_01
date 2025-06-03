@@ -1,4 +1,4 @@
-from app.infra.auth.token import Token
+from app.infra.auth.token_service import Token
 from app.config.settings import Settings
 from flask import jsonify,request
 from flasgger import swag_from
