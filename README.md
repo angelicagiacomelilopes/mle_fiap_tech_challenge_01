@@ -47,13 +47,13 @@ Este projeto consiste em criar uma API pública para consulta de dados de vitivi
 A solução implementa web scraping para obter os dados em tempo real do site da Embrapa, com fallback para arquivos locais em caso de indisponibilidade.
 
 ## 🚀 Funcionalidades
-
+```
 ✔️ Raspagem automática dos dados diretamente do portal da Embrapa  
 ✔️ Cache local dos dados como fallback  
 ✔️ Documentação automática com Swagger UI  
 ✔️ Formato JSON padronizado para todas as respostas  
 ✔️ Tratamento de erros e logs detalhados  
-
+```
 ## 💻 Tecnologias Utilizadas
 
 - Backend: Flask (Python)
@@ -172,21 +172,23 @@ python main.py
 
 ## 🛠️ Execução e Testes
 ### Rotas disponíveis
+```
 ✔️ GET /producao: Dados de produção
 ✔️ GET /processamento: Dados de processamento
 ✔️ GET /comercializacao: Dados de comercialização
 ✔️ GET /importacao: Dados de importação
 ✔️ GET /exportacao: Dados de exportação
 ✔️ POST /login : Autenticação JWT
-
+```
 ### Utilizado para validar rota - usado apenas para testes de desenvolvimento
+```
 ✔️ GET /producao/health: Validacao da rota
 ✔️ GET /processamento/health: Validacao da rota
 ✔️ GET /comercializacao/health: Validacao da rota
 ✔️ GET /importacao/health: Validacao da rota
 ✔️ GET /exportacao/health: Validacao da rota
 ✔️ GET /token/health: Validacao da rota
-
+```
 
 ## Testando a API Via Produção
 Acesse a documentação Sweager
