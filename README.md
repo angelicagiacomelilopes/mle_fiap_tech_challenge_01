@@ -1,5 +1,6 @@
 # Tech Challenge – Fase 1 | Machine Learning Engineering
 # 🍷 API de Dados Vitivinícolas da Embrapa
+Aluna: Angélica Giacomeli Lopes RM: 363921
 
 Respositório do Tech Challenge FIAP de Machine Leaning 
 Link: https://github.com/angelicagiacomelilopes/mle_fiap_tech_challenge_01.git
