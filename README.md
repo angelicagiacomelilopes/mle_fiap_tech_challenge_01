@@ -74,6 +74,7 @@ graph TD
 ```
 
 ## 📁 Estrutura das pastas
+```
 mle_fiap_tech_challenge_01/
 ├── 📁 app/
 │   ├── 📄 __init__.py
@@ -140,6 +141,7 @@ mle_fiap_tech_challenge_01/
 ├── 📦 requirements.txt             
 ├── 📄 README.md               
 └── 📄 READMEFIAP.md
+```
 
 ## 📦 Instalação
 - Pré-requisitos
