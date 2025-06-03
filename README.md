@@ -560,6 +560,7 @@ Distribuído sob a licença MIT. Veja LICENSE para mais informações.
 
 ## ✉️ Contato
 Responsável - giacomeliangelica@email.com
+
 Projeto Link: https://mle-fiap-tech-challenge-01.onrender.com/
 
 

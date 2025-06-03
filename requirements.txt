@@ -11,3 +11,4 @@ Flask-HTTPAuth
 pytest
 pydantic
 gunicorn 
+pytest-mock
